@@ -13,3 +13,6 @@ android自带的DatePicker具有日期选择的功能，但是由于不同的rom
 1.农历、公历转换时没有动画效果；<br>
 2.内容上下滑动时没有添加渐变效果；<br>
 3.使用NumberPickerUI可定制性较差；<br>
+
+###动画示例：<br>
+![GregorianLunarCalendar](https://github.com/Carbs0126/GregorianLunarCalendar/blob/master/GregorianLunarCalendar.gif)
