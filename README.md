@@ -76,7 +76,16 @@ https://github.com/Carbs0126/NumberPickerView<br>
   int monthL = calendar.get(ChineseCalendar.CHINESE_MONTH));//获取农历月 5//注意，如果是闰五月则返回-5
   int dayL = calendar.get(ChineseCalendar.CHINESE_DATE);//获取农历日 20
 ```
-
+3.自定义属性说明：
+```
+    //自定义属性包括如下几种
+    <declare-styleable name="GregorianLunarCalendarView">
+        <attr name="glcv_ScrollAnimation" format="reference|boolean" />//切换公农历模式时，是否开启动画效果
+        <attr name="glcv_GregorianThemeColor" format="reference|color" />//公历主题颜色
+        <attr name="glcv_LunarThemeColor" format="reference|color" />//农历主题颜色
+        <attr name="glcv_NormalTextColor" format="reference|color" />//普通状态下的文字颜色
+    </declare-styleable>
+```
 注：<br>
 sample中的公农历切换控件使用的是`IndicatorView`，项目地址在此处：
 https://github.com/Carbs0126/IndicatorView
