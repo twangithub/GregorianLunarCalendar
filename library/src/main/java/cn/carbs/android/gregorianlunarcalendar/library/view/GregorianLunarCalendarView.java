@@ -18,6 +18,7 @@ public class GregorianLunarCalendarView extends LinearLayout implements NumberPi
 
     private static final int DEFAULT_GREGORIAN_COLOR = 0xff3388ff;
     private static final int DEFAULT_LUNAR_COLOR = 0xffee5544;
+    private static final int DEFAULT_NORMAL_TEXT_COLOR = 0xFF555555;
 
 	private static final int YEAR_START = 1901;
 	private static final int YEAR_STOP = 2100;
@@ -55,6 +56,7 @@ public class GregorianLunarCalendarView extends LinearLayout implements NumberPi
 
     private int mThemeColorG = DEFAULT_GREGORIAN_COLOR;
     private int mThemeColorL = DEFAULT_LUNAR_COLOR;
+    private int mNormalTextColor = DEFAULT_NORMAL_TEXT_COLOR;
 
     /**
      * display values
@@ -121,23 +123,25 @@ public class GregorianLunarCalendarView extends LinearLayout implements NumberPi
                 mThemeColorG = a.getColor(attr, DEFAULT_GREGORIAN_COLOR);
             }if(attr == R.styleable.GregorianLunarCalendarView_glcv_LunarThemeColor){
                 mThemeColorL = a.getColor(attr, DEFAULT_LUNAR_COLOR);
+            }if(attr == R.styleable.GregorianLunarCalendarView_glcv_NormalTextColor){
+                mNormalTextColor = a.getColor(attr, DEFAULT_NORMAL_TEXT_COLOR);
             }
         }
         a.recycle();
     }
 
     public void init(){
-        setThemeColor(mThemeColorG);
+        setColor(mThemeColorG, mNormalTextColor);
         setConfigs(Calendar.getInstance(), true, false);
     }
 
     public void init(Calendar calendar){
-        setThemeColor(mThemeColorG);
+        setColor(mThemeColorG, mNormalTextColor);
         setConfigs(calendar, true, false);
     }
 
     public void init(Calendar calendar, boolean isGregorian){
-        setThemeColor(isGregorian ? mThemeColorG : mThemeColorL);
+        setColor(isGregorian ? mThemeColorG : mThemeColorL, mNormalTextColor);
         setConfigs(calendar, isGregorian, false);
     }
 

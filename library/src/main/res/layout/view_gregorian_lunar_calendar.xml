@@ -13,7 +13,6 @@
         android:contentDescription="year_picker"
         app:npv_AlternativeTextArrayWithoutMeasureHint="@array/npv_lunar_year_without_measure_hint"
         app:npv_HintText="@string/year"
-        app:npv_TextColorNormal="@color/colorPickerTextNormal"
         app:npv_TextSizeHint="12dp"/>
 
     <cn.carbswang.android.numberpickerview.library.NumberPickerView
@@ -27,7 +26,6 @@
         android:contentDescription="month_picker"
         app:npv_AlternativeTextArrayWithoutMeasureHint="@array/npv_lunar_month_without_measure_hint"
         app:npv_HintText="@string/month"
-        app:npv_TextColorNormal="@color/colorPickerTextNormal"
         app:npv_TextSizeHint="12dp"/>
 
     <cn.carbswang.android.numberpickerview.library.NumberPickerView
@@ -40,6 +38,5 @@
         app:npv_AlternativeTextArrayWithMeasureHint="@array/npv_lunar_day_with_measure_hint"
         app:npv_AlternativeTextArrayWithoutMeasureHint="@array/npv_lunar_day_with_measure_hint"
         app:npv_HintText="@string/day"
-        app:npv_TextColorNormal="@color/colorPickerTextNormal"
         app:npv_TextSizeHint="12dp"/>
 </LinearLayout>

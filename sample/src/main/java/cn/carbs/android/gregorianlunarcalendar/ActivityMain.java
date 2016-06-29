@@ -2,11 +2,14 @@ package cn.carbs.android.gregorianlunarcalendar;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import cn.carbs.android.gregorianlunarcalendar.library.data.ChineseCalendar;
 import cn.carbs.android.gregorianlunarcalendar.library.view.GregorianLunarCalendarView;
@@ -26,7 +29,12 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mGLCView = (GregorianLunarCalendarView) this.findViewById(R.id.calendar_view);
-        mGLCView.init();//init has no scroll effection
+        mGLCView.init();//init has no scroll effection, to today
+
+        /*Calendar customizedCalendar = Calendar.getInstance();
+        customizedCalendar.set((2012), 11, 12);//2012-12-12
+        mGLCView.init(customizedCalendar);//to 2012-12-12*/
+
         mIndicatorView = (IndicatorView) this.findViewById(R.id.indicator_view);
         mIndicatorView.setOnIndicatorChangedListener(this);
 
@@ -39,12 +47,13 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.button_get_data:
                 GregorianLunarCalendarView.CalendarData calendarData = mGLCView.getCalendarData();
-                String showToast = "Gregorian : " + calendarData.getCalendar().get(Calendar.YEAR) + "-"
-                        + (calendarData.getCalendar().get(Calendar.MONTH) + 1) + "-"
-                        + calendarData.getCalendar().get(Calendar.DAY_OF_MONTH) + "\n"
-                        + "Lunar     : " + calendarData.getCalendar().get(ChineseCalendar.CHINESE_YEAR) + "-"
-                        + (calendarData.getCalendar().get(ChineseCalendar.CHINESE_MONTH)) + "-"
-                        + calendarData.getCalendar().get(ChineseCalendar.CHINESE_DATE);
+                Calendar calendar = calendarData.getCalendar();
+                String showToast = "Gregorian : " + calendar.get(Calendar.YEAR) + "-"
+                        + (calendar.get(Calendar.MONTH) + 1) + "-"
+                        + calendar.get(Calendar.DAY_OF_MONTH) + "\n"
+                        + "Lunar     : " + calendar.get(ChineseCalendar.CHINESE_YEAR) + "-"
+                        + (calendar.get(ChineseCalendar.CHINESE_MONTH)) + "-"
+                        + calendar.get(ChineseCalendar.CHINESE_DATE);
                 Toast.makeText(getApplicationContext(), showToast, Toast.LENGTH_LONG).show();
                 break;
         }
