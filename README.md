@@ -110,5 +110,5 @@ https://github.com/Carbs0126/IndicatorView
     limitations under the License.
 
 
-[1]: https://github.com/Carbs0126/Screenshot/blob/master/gregorian.gif
+[1]: https://github.com/Carbs0126/Screenshot/blob/master/gregorian_refine.gif
 [2]: https://github.com/Carbs0126/Screenshot/blob/master/gregorian.jpg
