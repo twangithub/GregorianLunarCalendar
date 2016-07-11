@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">GregorianLunarCalendar</string>
     <string name="get_data">获取数据</string>
+    <string name="in_dialog">在Dialog中显示</string>
 
     <string-array name="indicator_string_array">
         <item>公历</item>

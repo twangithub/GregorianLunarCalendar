@@ -9,5 +9,7 @@
     <color name="colorPickerTextNormal">#FF555555</color>
     <color name="colorPickerTextSelected">#FFF56313</color>
     <color name="colorIndicatorTextNormal">#FF555555</color>
+    <color name="colorTransparent">#00000000</color>
+    <color name="colorWhite">#ffffffff</color>
 
 </resources>

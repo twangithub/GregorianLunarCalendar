@@ -1,47 +1,53 @@
 package cn.carbs.android.gregorianlunarcalendar;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
-import android.text.format.DateUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import cn.carbs.android.gregorianlunarcalendar.library.data.ChineseCalendar;
 import cn.carbs.android.gregorianlunarcalendar.library.view.GregorianLunarCalendarView;
 import cn.carbs.android.indicatorview.library.IndicatorView;
 
-public class ActivityMain extends AppCompatActivity implements View.OnClickListener, IndicatorView.OnIndicatorChangedListener {
+/**
+ * Created by carbs on 2016/7/12.
+ */
 
-    //indicator view used to indicate and switch gregorien/lunar mode
+public class DialogGLC extends Dialog implements View.OnClickListener, IndicatorView.OnIndicatorChangedListener {
+
+    private Context mContext;
     private IndicatorView mIndicatorView;
     private GregorianLunarCalendarView mGLCView;
     private Button mButtonGetData;
-    private Button mButtonShowDialog;
-    private DialogGLC mDialog;
+
+    public DialogGLC(Context context) {
+        super(context, R.style.dialog);
+        mContext = context;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.dialog_glc);
+
         mGLCView = (GregorianLunarCalendarView) this.findViewById(R.id.calendar_view);
         mGLCView.init();//init has no scroll effection, to today
-
-        /*Calendar customizedCalendar = Calendar.getInstance();
-        customizedCalendar.set((2012), 11, 12);//2012-12-12
-        mGLCView.init(customizedCalendar);//to 2012-12-12*/
-
         mIndicatorView = (IndicatorView) this.findViewById(R.id.indicator_view);
         mIndicatorView.setOnIndicatorChangedListener(this);
 
         mButtonGetData = (Button) this.findViewById(R.id.button_get_data);
         mButtonGetData.setOnClickListener(this);
-        mButtonShowDialog = (Button) this.findViewById(R.id.button_in_dialog);
-        mButtonShowDialog.setOnClickListener(this);
+    }
+
+    @Override
+    public void onAttachedToWindow() {
+        super.onAttachedToWindow();
+//        mGLCView.init();//if you want to reset data everytime showing this dialog, open this line
     }
 
     @Override
@@ -56,27 +62,10 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
                         + "Lunar     : " + calendar.get(ChineseCalendar.CHINESE_YEAR) + "-"
                         + (calendar.get(ChineseCalendar.CHINESE_MONTH)) + "-"
                         + calendar.get(ChineseCalendar.CHINESE_DATE);
-                Toast.makeText(getApplicationContext(), showToast, Toast.LENGTH_LONG).show();
-                break;
-            case R.id.button_in_dialog:
-                showInDialog();
+                Toast.makeText(mContext.getApplicationContext(), showToast, Toast.LENGTH_LONG).show();
                 break;
         }
     }
-
-    private void showInDialog(){
-        if(mDialog == null){
-            mDialog = new DialogGLC(this);
-        }
-        if(mDialog.isShowing()){
-            mDialog.dismiss();
-        }else {
-            mDialog.setCancelable(true);
-            mDialog.setCanceledOnTouchOutside(true);
-            mDialog.show();
-        }
-    }
-
 
     @Override
     public void onIndicatorChanged(int oldSelectedIndex, int newSelectedIndex) {
@@ -95,4 +84,3 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
         mGLCView.toLunarMode();
     }
 }
-

@@ -2,6 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
     android:orientation="vertical">
 
     <cn.carbs.android.indicatorview.library.IndicatorView
@@ -31,15 +32,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="@string/get_data"
-        android:textAllCaps="false" />
-
-    <Button
-        android:id="@+id/button_in_dialog"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/in_dialog"
-        android:textAllCaps="false" />
+        android:text="@string/get_data" />
 
 </LinearLayout>
