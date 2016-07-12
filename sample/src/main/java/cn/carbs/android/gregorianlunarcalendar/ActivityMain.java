@@ -2,20 +2,18 @@ package cn.carbs.android.gregorianlunarcalendar;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
-import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import cn.carbs.android.gregorianlunarcalendar.library.data.ChineseCalendar;
 import cn.carbs.android.gregorianlunarcalendar.library.view.GregorianLunarCalendarView;
 import cn.carbs.android.indicatorview.library.IndicatorView;
 
-public class ActivityMain extends AppCompatActivity implements View.OnClickListener, IndicatorView.OnIndicatorChangedListener {
+public class ActivityMain extends AppCompatActivity implements View.OnClickListener,
+        IndicatorView.OnIndicatorChangedListener {
 
     //indicator view used to indicate and switch gregorien/lunar mode
     private IndicatorView mIndicatorView;
@@ -32,7 +30,7 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
         mGLCView.init();//init has no scroll effection, to today
 
         /*Calendar customizedCalendar = Calendar.getInstance();
-        customizedCalendar.set((2012), 11, 12);//2012-12-12
+        customizedCalendar.set((2012), 11, 12);//eg. 2012-12-12
         mGLCView.init(customizedCalendar);//to 2012-12-12*/
 
         mIndicatorView = (IndicatorView) this.findViewById(R.id.indicator_view);
@@ -74,6 +72,9 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
             mDialog.setCancelable(true);
             mDialog.setCanceledOnTouchOutside(true);
             mDialog.show();
+            //better initialize NumberPickerView's data (or set a certain value)
+            // every time setting up reusable dialog
+            mDialog.initCalendar();
         }
     }
 

@@ -3,8 +3,10 @@ package cn.carbs.android.gregorianlunarcalendar;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -34,9 +36,10 @@ public class DialogGLC extends Dialog implements View.OnClickListener, Indicator
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_glc);
+        initWindow();
 
         mGLCView = (GregorianLunarCalendarView) this.findViewById(R.id.calendar_view);
-        mGLCView.init();//init has no scroll effection, to today
+//        mGLCView.init();//init has no scroll effect, to today
         mIndicatorView = (IndicatorView) this.findViewById(R.id.indicator_view);
         mIndicatorView.setOnIndicatorChangedListener(this);
 
@@ -44,10 +47,8 @@ public class DialogGLC extends Dialog implements View.OnClickListener, Indicator
         mButtonGetData.setOnClickListener(this);
     }
 
-    @Override
-    public void onAttachedToWindow() {
-        super.onAttachedToWindow();
-//        mGLCView.init();//if you want to reset data everytime showing this dialog, open this line
+    public void initCalendar(){
+        mGLCView.init();
     }
 
     @Override
@@ -82,5 +83,28 @@ public class DialogGLC extends Dialog implements View.OnClickListener, Indicator
 
     private void toLunarMode() {
         mGLCView.toLunarMode();
+    }
+
+    private void initWindow(){
+        Window win = this.getWindow();
+        win.getDecorView().setPadding(0, 0, 0, 0);
+        WindowManager.LayoutParams lp = win.getAttributes();
+        lp.width = (int)(0.90 * getScreenWidth(getContext()));
+        if(lp.width > dp2px(getContext(), 480)){
+            lp.width = dp2px(getContext(), 480);
+        }
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.gravity = Gravity.CENTER;
+        win.setAttributes(lp);
+    }
+
+    private int getScreenWidth(Context context) {
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        return wm.getDefaultDisplay().getWidth();
+    }
+
+    private int dp2px(Context context, float dipValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dipValue * scale + 0.5f);
     }
 }
