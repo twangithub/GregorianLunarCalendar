@@ -10,7 +10,7 @@ import java.util.GregorianCalendar;
  */
 public final class ChineseCalendar extends GregorianCalendar {
     private static final long serialVersionUID = 8L;
- 
+
     /** lunar year */
     public static final int CHINESE_YEAR = 801;
     /** lunar month */
@@ -23,13 +23,13 @@ public final class ChineseCalendar extends GregorianCalendar {
     public static final int CHINESE_EARTHLY_BRANCH = 807;
     public static final int CHINESE_ZODIAC = 808;
     public static final int CHINESE_TERM_OR_DATE = 888;
- 
+
     private int chineseYear;
     private int chineseMonth; // start from 1, negative int represents LeapMonth
     private int chineseDate;
     private int sectionalTerm;
     private int principleTerm;
- 
+
     private boolean areChineseFieldsComputed; // is lunar date be calculated accurately
     private boolean areSolarTermsComputed;
     private boolean lastSetChinese;
@@ -37,19 +37,19 @@ public final class ChineseCalendar extends GregorianCalendar {
     public ChineseCalendar() {
         super();
     }
- 
+
     public ChineseCalendar(Date d) {
         super.setTime(d);
     }
- 
+
     public ChineseCalendar(Calendar c) {
         this(c.getTime());
     }
- 
+
     public ChineseCalendar(int y, int m, int d) {
         super(y, m, d);
     }
- 
+
     public ChineseCalendar(boolean isChinese, int y, int m, int d) {
         if (isChinese) {
             set(CHINESE_YEAR, y);
@@ -59,10 +59,10 @@ public final class ChineseCalendar extends GregorianCalendar {
             set(y, m, d);
         }
     }
- 
+
     public void set(int field, int value) {
         computeIfNeed(field);
- 
+
         if (isChineseField(field)) {
             switch (field) {
             case CHINESE_YEAR:
@@ -87,14 +87,14 @@ public final class ChineseCalendar extends GregorianCalendar {
         areChineseFieldsComputed = false;
         areSolarTermsComputed = false;
     }
- 
+
     public int get(int field) {
         computeIfNeed(field);
- 
+
         if (!isChineseField(field)) {
             return super.get(field);
         }
- 
+
         switch (field) {
         case CHINESE_YEAR:
             return chineseYear;
@@ -127,10 +127,10 @@ public final class ChineseCalendar extends GregorianCalendar {
             throw new IllegalArgumentException("field not supported, field : " + field);
         }
     }
- 
+
     public void add(int field, int amount) {
         computeIfNeed(field);
- 
+
         if (!isChineseField(field)) {
             super.add(field, amount);
             lastSetChinese = false;
@@ -138,7 +138,7 @@ public final class ChineseCalendar extends GregorianCalendar {
             areSolarTermsComputed = false;
             return;
         }
- 
+
         switch (field) {
         case CHINESE_YEAR:
             chineseYear += amount;
@@ -167,16 +167,16 @@ public final class ChineseCalendar extends GregorianCalendar {
         default:
             throw new IllegalArgumentException("field not supported, field : " + field);
         }
- 
+
         lastSetChinese = true;
         areFieldsSet = false;
         areChineseFieldsComputed = false;
         areSolarTermsComputed = false;
     }
- 
+
     public void roll(int field, int amount) {
         computeIfNeed(field);
- 
+
         if (!isChineseField(field)) {
             super.roll(field, amount);
             lastSetChinese = false;
@@ -184,7 +184,7 @@ public final class ChineseCalendar extends GregorianCalendar {
             areSolarTermsComputed = false;
             return;
         }
- 
+
         switch (field) {
         case CHINESE_YEAR:
             chineseYear += amount;
@@ -205,16 +205,16 @@ public final class ChineseCalendar extends GregorianCalendar {
         default:
             throw new IllegalArgumentException("field not supported, field : " + field);
         }
- 
+
         lastSetChinese = true;
         areFieldsSet = false;
         areChineseFieldsComputed = false;
         areSolarTermsComputed = false;
     }
- 
+
     public String getChinese(int field) {
         computeIfNeed(field);
- 
+
         switch (field) {
         case CHINESE_YEAR:
             return getChinese(CHINESE_HEAVENLY_STEM)
@@ -244,13 +244,13 @@ public final class ChineseCalendar extends GregorianCalendar {
             throw new IllegalArgumentException("field not supported, field : " + field);
         }
     }
- 
+
     public String getSimpleGregorianDateString() {
         return new StringBuffer().append(get(YEAR)).append("-")
                 .append(get(MONTH) + 1).append("-").append(get(DATE))
                 .toString();
     }
- 
+
     public String getSimpleChineseDateString() {
         return new StringBuffer()
                 .append(get(CHINESE_YEAR))
@@ -259,13 +259,13 @@ public final class ChineseCalendar extends GregorianCalendar {
                         + (-get(CHINESE_MONTH))).append("-")
                 .append(get(CHINESE_DATE)).toString();
     }
- 
+
     public String getChineseDateString() {
         return new StringBuffer().append(getChinese(CHINESE_YEAR))
                 .append(getChinese(CHINESE_MONTH))
                 .append(getChinese(CHINESE_DATE)).toString();
     }
- 
+
     public String toString() {
         StringBuffer buf = new StringBuffer();
         buf.append(getSimpleGregorianDateString()).append(" | ")
@@ -278,7 +278,7 @@ public final class ChineseCalendar extends GregorianCalendar {
                 .append(getChinese(CHINESE_PRINCIPLE_TERM));
         return buf.toString();
     }
- 
+
     private boolean isChineseField(int field) {
         switch (field) {
         case CHINESE_YEAR:
@@ -295,7 +295,7 @@ public final class ChineseCalendar extends GregorianCalendar {
             return false;
         }
     }
- 
+
     private boolean isChineseTermsField(int field) {
         switch (field) {
         case CHINESE_SECTIONAL_TERM:
@@ -306,7 +306,7 @@ public final class ChineseCalendar extends GregorianCalendar {
             return false;
         }
     }
- 
+
     private void computeIfNeed(int field) {
         if (isChineseField(field)) {
             if (!lastSetChinese && !areChineseFieldsComputed) {
@@ -330,7 +330,7 @@ public final class ChineseCalendar extends GregorianCalendar {
             }
         }
     }
- 
+
     private void computeGregorianFields() {
         int y = chineseYear;
         int m = chineseMonth;
@@ -338,23 +338,23 @@ public final class ChineseCalendar extends GregorianCalendar {
         areChineseFieldsComputed = true;
         areFieldsSet = true;
         lastSetChinese = false;
- 
+
         // 调整日期范围
         if (y < 1900)
             y = 1899;
         else if (y > 2100)
             y = 2101;
- 
+
         if (m < -12)
             m = -12;
         else if (m > 12)
             m = 12;
- 
+
         if (d < 1)
             d = 1;
         else if (d > 30)
             d = 30;
- 
+
         int dateint = y * 10000 + Math.abs(m) * 100 + d;
         if (dateint < 19001111) { // too small
             set(1901, Calendar.JANUARY, 1);
@@ -376,7 +376,7 @@ public final class ChineseCalendar extends GregorianCalendar {
             }
             set(y, Math.abs(m) - 1, d);
             computeChineseFields();
- 
+
             int amount = 0;
             while (chineseYear != y || chineseMonth != m) {
                 amount += daysInChineseMonth(chineseYear, chineseMonth);
@@ -386,21 +386,21 @@ public final class ChineseCalendar extends GregorianCalendar {
                 }
             }
             amount += d - chineseDate;
- 
+
             super.add(Calendar.DATE, amount);
         }
         computeChineseFields();
     }
- 
+
     private void computeChineseFields() {
         int gregorianYear = internalGet(Calendar.YEAR);
         int gregorianMonth = internalGet(Calendar.MONTH) + 1;
         int gregorianDate = internalGet(Calendar.DATE);
- 
+
         if (gregorianYear < 1901 || gregorianYear > 2100) {
             return;
         }
- 
+
         int startYear, startMonth, startDate;
         if (gregorianYear < 2000) {
             startYear = baseYear;
@@ -417,9 +417,9 @@ public final class ChineseCalendar extends GregorianCalendar {
             chineseMonth = 11;
             chineseDate = 25;
         }
- 
+
         int daysDiff = 0;
- 
+
         for (int i = startYear; i < gregorianYear; i++) {
             if (isGregorianLeapYear(i)) {
                 daysDiff += 366; // leap year
@@ -427,17 +427,17 @@ public final class ChineseCalendar extends GregorianCalendar {
                 daysDiff += 365;
             }
         }
- 
+
         // month
         for (int i = startMonth; i < gregorianMonth; i++) {
             daysDiff += daysInGregorianMonth(gregorianYear, i - 1);
         }
- 
+
         // day
         daysDiff += gregorianDate - startDate;
- 
+
         chineseDate += daysDiff;
- 
+
         int lastDate = daysInChineseMonth(chineseYear, chineseMonth);
         while (chineseDate > lastDate) {
             chineseDate -= lastDate;
@@ -447,20 +447,20 @@ public final class ChineseCalendar extends GregorianCalendar {
             }
             lastDate = daysInChineseMonth(chineseYear, chineseMonth);
         }
- 
+
     }
- 
+
     private void computeSolarTerms() {
         int gregorianYear = internalGet(Calendar.YEAR);
         int gregorianMonth = internalGet(Calendar.MONTH);
- 
+
         if (gregorianYear < 1901 || gregorianYear > 2100) {
             return;
         }
         sectionalTerm = sectionalTerm(gregorianYear, gregorianMonth);
         principleTerm = principleTerm(gregorianYear, gregorianMonth);
     }
- 
+
     /**
      * if is leap year in gregorian mode
      *
@@ -480,7 +480,7 @@ public final class ChineseCalendar extends GregorianCalendar {
         }
         return isLeap;
     }
- 
+
     /**
      * calculate sum of days in y year, gregorian month counted from 0
      *
@@ -495,7 +495,7 @@ public final class ChineseCalendar extends GregorianCalendar {
         }
         return d;
     }
- 
+
     public static int sectionalTerm(int y, int m) {
         m++;
         if (y < 1901 || y > 2100) {
@@ -518,7 +518,7 @@ public final class ChineseCalendar extends GregorianCalendar {
         }
         return term;
     }
- 
+
     public static int principleTerm(int y, int m) {
         m++;
         if (y < 1901 || y > 2100) {
@@ -538,7 +538,7 @@ public final class ChineseCalendar extends GregorianCalendar {
         }
         return term;
     }
- 
+
     /**
      * calculate if this year(lunar year) will have leap month,
      * if have, then return the negative int represent leap month,
@@ -548,13 +548,13 @@ public final class ChineseCalendar extends GregorianCalendar {
      * @return
      */
     public static int getMonthLeapByYear(int y){
-    	int index = y - baseChineseYear + baseIndex;
-    	int v = 0;
-    	v = chineseMonths[2 * index + 1];
-    	v = (v >> 4) & 0x0F;
-    	return -v;
+        int index = y - baseChineseYear + baseIndex;
+        int v = 0;
+        v = chineseMonths[2 * index + 1];
+        v = (v >> 4) & 0x0F;
+        return -v;
     }
-    
+
     /**
      * calculate the lunar month(m)'s days in lunar year(y)
      *
@@ -596,7 +596,7 @@ public final class ChineseCalendar extends GregorianCalendar {
         }
         return d;
     }
- 
+
     /**
      * calculate the next leap month
      *
@@ -619,7 +619,7 @@ public final class ChineseCalendar extends GregorianCalendar {
         }
         return n;
     }
- 
+
     private static final int baseYear = 1901;
     private static final int baseMonth = 1;
     private static final int baseDate = 1;
@@ -627,7 +627,7 @@ public final class ChineseCalendar extends GregorianCalendar {
     private static final int baseChineseYear = 1900;
     private static final int baseChineseMonth = 11;
     private static final int baseChineseDate = 11;
- 
+
     private static final String[] chineseWeekNames = { "", "星期日", "星期一", "星期二",
             "星期三", "星期四", "星期五", "星期六" };
     private static final String[] chineseMonthNames = { "", "正", "二", "三", "四",
@@ -646,7 +646,7 @@ public final class ChineseCalendar extends GregorianCalendar {
             "巳", "午", "未", "申", "酉", "戌", "亥" };
     private static final String[] animalNames = { "", "鼠", "牛", "虎", "兔", "龙",
             "蛇", "马", "羊", "猴", "鸡", "狗", "猪" };
- 
+
     private static final int[] bigLeapMonthYears = { 6, 14, 19, 25, 33, 36, 38,
             41, 44, 52, 55, 79, 117, 136, 147, 150, 155, 158, 185, 193 };
     private static final char[][] sectionalTermMap = {
@@ -725,7 +725,7 @@ public final class ChineseCalendar extends GregorianCalendar {
             { 28, 60, 92, 124, 160, 192, 200, 201 },
             { 16, 44, 80, 112, 148, 180, 200, 201 },
             { 17, 53, 88, 120, 156, 188, 200, 201 } };
- 
+
     private static final char[] daysInGregorianMonth = { 31, 28, 31, 30, 31,
             30, 31, 31, 30, 31, 30, 31 };
     private static final char[] chineseMonths = { 0x00, 0x04, 0xad, 0x08, 0x5a,
