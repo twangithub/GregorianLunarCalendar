@@ -520,6 +520,21 @@ public class GregorianLunarCalendarView extends LinearLayout implements NumberPi
         public int pickedYear;
         public int pickedMonthSway;
         public int pickedDay;
+
+        /**
+         * 获取数据示例与说明：
+         * Gregorian : //公历
+         *      chineseCalendar.get(Calendar.YEAR)              //获取公历年份，范围[1900 ~ 2100]
+         *      chineseCalendar.get(Calendar.MONTH) + 1         //获取公历月份，范围[1 ~ 12]
+         *      chineseCalendar.get(Calendar.DAY_OF_MONTH)      //返回公历日，范围[1 ~ 30]
+         *
+         * Lunar
+         *      chineseCalendar.get(ChineseCalendar.CHINESE_YEAR)   //返回农历年份，范围[1900 ~ 2100]
+         *      chineseCalendar.get(ChineseCalendar.CHINESE_MONTH)) //返回农历月份，范围[(-12) ~ (-1)] || [1 ~ 12]
+         *                                                          //当有月份为闰月时，返回对应负值
+         *                                                          //当月份非闰月时，返回对应的月份值
+         *      calendar.get(ChineseCalendar.CHINESE_DATE)         //返回农历日，范围[1 ~ 30]
+         */
         public ChineseCalendar chineseCalendar;
 
         /**
