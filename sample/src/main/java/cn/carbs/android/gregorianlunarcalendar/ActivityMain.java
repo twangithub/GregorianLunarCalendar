@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -18,6 +19,7 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
     //indicator view used to indicate and switch gregorien/lunar mode
     private IndicatorView mIndicatorView;
     private GregorianLunarCalendarView mGLCView;
+    private TextView mChangedDate;
     private Button mButtonGetData;
     private Button mButtonShowDialog;
     private DialogGLC mDialog;
@@ -40,6 +42,20 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
         mButtonGetData.setOnClickListener(this);
         mButtonShowDialog = (Button) this.findViewById(R.id.button_in_dialog);
         mButtonShowDialog.setOnClickListener(this);
+        mChangedDate = (TextView)this.findViewById(R.id.tv_changed_date);
+        mGLCView.setOnDateChangedListener(new GregorianLunarCalendarView.OnDateChangedListener(){
+            @Override
+            public void onDateChanged(GregorianLunarCalendarView.CalendarData calendarData) {
+                Calendar calendar = calendarData.getCalendar();
+                String showToast = "Gregorian : " + calendar.get(Calendar.YEAR) + "-"
+                        + (calendar.get(Calendar.MONTH) + 1) + "-"
+                        + calendar.get(Calendar.DAY_OF_MONTH) + "\n"
+                        + "Lunar     : " + calendar.get(ChineseCalendar.CHINESE_YEAR) + "-"
+                        + (calendar.get(ChineseCalendar.CHINESE_MONTH)) + "-"
+                        + calendar.get(ChineseCalendar.CHINESE_DATE);
+                mChangedDate.setText(showToast);
+            }
+        });
     }
 
     @Override

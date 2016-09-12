@@ -79,6 +79,8 @@ public class GregorianLunarCalendarView extends LinearLayout implements NumberPi
      */
     private boolean mScrollAnim = true;
 
+    private OnDateChangedListener mOnDateChangedListener;
+
     public GregorianLunarCalendarView(Context context) {
         super(context);
         initInternal(context);
@@ -372,7 +374,9 @@ public class GregorianLunarCalendarView extends LinearLayout implements NumberPi
             int fixYear = mYearPickerView.getValue();
             passiveUpdateDay(fixYear, fixYear, oldVal, newVal, mIsGregorian);
         }else if(picker == mDayPickerView){
-
+            if(mOnDateChangedListener != null){
+                mOnDateChangedListener.onDateChanged(getCalendarData());
+            }
         }
     }
 
@@ -386,10 +390,16 @@ public class GregorianLunarCalendarView extends LinearLayout implements NumberPi
             int newDayStop = Util.getSumOfDayInMonth(newYearFix, newMonthSway, true);
 
             if(oldDayStop == newDayStop){
+                if(mOnDateChangedListener != null){
+                    mOnDateChangedListener.onDateChanged(getCalendarData(newYearFix, newMonthSway, oldDaySway, isGregorian));
+                }
                 return;
             }
             int newDaySway = (oldDaySway <= newDayStop) ? oldDaySway : newDayStop;
             setValuesForPickerView(mDayPickerView, newDaySway, DAY_START, newDayStop, mDisplayDaysGregorian, true, true);
+            if(mOnDateChangedListener != null){
+                mOnDateChangedListener.onDateChanged(getCalendarData(newYearFix, newMonthSway, newDaySway, isGregorian));
+            }
             return;
         }else{
             int newMonthSway = 0;
@@ -407,10 +417,16 @@ public class GregorianLunarCalendarView extends LinearLayout implements NumberPi
                 int newDayStop = Util.getSumOfDayInMonthForLunarByMonthLunar(newYearFix, newMonthLunar);
 
                 if(oldDayStop == newDayStop){
+                    if(mOnDateChangedListener != null){
+                        mOnDateChangedListener.onDateChanged(getCalendarData(newYearFix, newMonthSway, oldDaySway, isGregorian));
+                    }
                     return;
                 }else{
                     int newDaySway = (oldDaySway <= newDayStop) ? oldDaySway : newDayStop;
                     setValuesForPickerView(mDayPickerView, newDaySway, DAY_START, newDayStop, mDisplayDaysLunar, true, true);
+                    if(mOnDateChangedListener != null){
+                        mOnDateChangedListener.onDateChanged(getCalendarData(newYearFix, newMonthSway, newDaySway, isGregorian));
+                    }
                     return;
                 }
             }else{
@@ -429,10 +445,16 @@ public class GregorianLunarCalendarView extends LinearLayout implements NumberPi
                 int oldDayStop = Util.getSumOfDayInMonth(oldYearFix, oldMonthSway, false);
                 int newDayStop = Util.getSumOfDayInMonth(newYearFix, newMonthSway, false);
                 if(oldDayStop == newDayStop){
+                    if(mOnDateChangedListener != null){
+                        mOnDateChangedListener.onDateChanged(getCalendarData(newYearFix, newMonthSway, oldDaySway, isGregorian));
+                    }
                     return;//不需要更新
                 }else{
                     int newDaySway = (oldDaySway <= newDayStop) ? oldDaySway : newDayStop;
                     setValuesForPickerView(mDayPickerView, newDaySway, DAY_START, newDayStop, mDisplayDaysLunar, true, true);
+                    if(mOnDateChangedListener != null){
+                        mOnDateChangedListener.onDateChanged(getCalendarData(newYearFix, newMonthSway, newDaySway, isGregorian));
+                    }
                     return;
                 }
             }
@@ -446,10 +468,16 @@ public class GregorianLunarCalendarView extends LinearLayout implements NumberPi
         int newDayStop = Util.getSumOfDayInMonth(newYear, newMonth, isGregorian);
 
         if(oldDayStop == newDayStop){
+            if(mOnDateChangedListener != null){
+                mOnDateChangedListener.onDateChanged(getCalendarData(newYear, newMonth, oldDaySway, isGregorian));
+            }
             return;//不需要更新
         }else{
             int newDaySway = oldDaySway <= newDayStop ? oldDaySway : newDayStop;
             setValuesForPickerView(mDayPickerView, newDaySway, DAY_START, newDayStop, isGregorian ? mDisplayDaysGregorian : mDisplayDaysLunar, true, true);
+            if(mOnDateChangedListener != null){
+                mOnDateChangedListener.onDateChanged(getCalendarData(newYear, newMonth, newDaySway, isGregorian));
+            }
             return;
         }
     }
@@ -506,6 +534,10 @@ public class GregorianLunarCalendarView extends LinearLayout implements NumberPi
 
     public boolean getIsGregorian(){
         return mIsGregorian;
+    }
+
+    private CalendarData getCalendarData(int pickedYear, int pickedMonthSway, int pickedDay, boolean mIsGregorian){
+        return new CalendarData(pickedYear, pickedMonthSway, pickedDay, mIsGregorian);
     }
 
     public CalendarData getCalendarData(){
@@ -575,4 +607,13 @@ public class GregorianLunarCalendarView extends LinearLayout implements NumberPi
             return chineseCalendar;
         }
     }
+
+    public interface OnDateChangedListener{
+        void onDateChanged(CalendarData calendarData);
+    }
+
+    public void setOnDateChangedListener(OnDateChangedListener listener){
+        mOnDateChangedListener = listener;
+    }
+
 }

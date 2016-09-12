@@ -42,4 +42,9 @@
         android:text="@string/in_dialog"
         android:textAllCaps="false" />
 
+    <TextView
+        android:id="@+id/tv_changed_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>
