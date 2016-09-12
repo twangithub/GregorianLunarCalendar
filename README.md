@@ -52,7 +52,7 @@ https://github.com/Carbs0126/NumberPickerView<br>
         app:glcv_ScrollAnimation="true"/>//是否开启滚动动画效果，默认true
 ```
 2.java代码中的使用：
-```
+```java
   //找到View
   GregorianLunarCalendarView mGLCView = (GregorianLunarCalendarView) this.findViewById(R.id.calendar_view)
   
@@ -77,6 +77,22 @@ https://github.com/Carbs0126/NumberPickerView<br>
   int yearL = calendar.get(ChineseCalendar.CHINESE_YEAR);//获取农历年 2016
   int monthL = calendar.get(ChineseCalendar.CHINESE_MONTH));//获取农历月 5//注意，如果是闰五月则返回-5
   int dayL = calendar.get(ChineseCalendar.CHINESE_DATE);//获取农历日 20
+  
+  //添加日期改变的回调
+  mGLCView.setOnDateChangedListener(new GregorianLunarCalendarView.OnDateChangedListener(){
+        @Override
+        public void onDateChanged(GregorianLunarCalendarView.CalendarData calendarData) {
+            Calendar calendar = calendarData.getCalendar();
+            String showToast = "Gregorian : " + calendar.get(Calendar.YEAR) + "-"
+                         + (calendar.get(Calendar.MONTH) + 1) + "-"
+                         + calendar.get(Calendar.DAY_OF_MONTH) + "\n"
+                         + "Lunar     : " + calendar.get(ChineseCalendar.CHINESE_YEAR) + "-"
+                         + (calendar.get(ChineseCalendar.CHINESE_MONTH)) + "-"
+                         + calendar.get(ChineseCalendar.CHINESE_DATE);
+            mChangedDate.setText(showToast);
+           }
+        }
+    );
 ```
 3.自定义属性说明：
 ```
