@@ -1,10 +1,12 @@
 # GregorianLunarCalendar
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-GregorianLunarCalendar-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/3818)<br>
-
+## 修改后说明
+   修改了lib代码,使用起来更加方便
+   
 ## 修改后的截图
 ![Example Image](https://github.com/twangithub/GregorianLunarCalendar/blob/master/img_capture/g1.png)<br>
-![Example Image](https://github.com/twangithub/GregorianLunarCalendar/blob/master/img_capture/g1.png)<br>
-![Example Image](https://github.com/twangithub/GregorianLunarCalendar/blob/master/img_capture/g1.png)<br>
+![Example Image](https://github.com/twangithub/GregorianLunarCalendar/blob/master/img_capture/g2.png)<br>
+![Example Image](https://github.com/twangithub/GregorianLunarCalendar/blob/master/img_capture/g3.png)<br>
 
 
 ## License
