@@ -1,6 +1,11 @@
 # GregorianLunarCalendar
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-GregorianLunarCalendar-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/3818)<br>
 
+## 修改后的截图
+![Example Image][1]<br>
+![Example Image][1]<br>
+![Example Image][1]<br>
+
 `GregorianLunarCalendar`提供了农历+公历的日期选择模式，同时支持公历+农历的无缝切换
 
 ##控件截图
