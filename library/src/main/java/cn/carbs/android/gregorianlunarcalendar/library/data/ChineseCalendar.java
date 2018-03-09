@@ -1,5 +1,7 @@
 package cn.carbs.android.gregorianlunarcalendar.library.data;
 
+import android.annotation.SuppressLint;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -8,6 +10,7 @@ import java.util.GregorianCalendar;
  * @author <a href="http://www.cnblogs.com/huxi/">Huxi</a>
  *
  */
+@SuppressLint("WrongConstant")
 public final class ChineseCalendar extends GregorianCalendar {
     private static final long serialVersionUID = 8L;
 

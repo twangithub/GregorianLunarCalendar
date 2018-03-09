@@ -1,5 +1,6 @@
 package cn.carbs.android.gregorianlunarcalendar.library.view;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
@@ -11,8 +12,8 @@ import java.util.Calendar;
 import cn.carbs.android.gregorianlunarcalendar.library.R;
 import cn.carbs.android.gregorianlunarcalendar.library.data.ChineseCalendar;
 import cn.carbs.android.gregorianlunarcalendar.library.util.Util;
-import cn.carbswang.android.numberpickerview.library.NumberPickerView;
 
+@SuppressLint("WrongConstant")
 public class GregorianLunarCalendarView extends LinearLayout implements NumberPickerView.OnValueChangeListener{
 
     private static final int DEFAULT_GREGORIAN_COLOR = 0xff3388ff;
@@ -217,6 +218,7 @@ public class GregorianLunarCalendarView extends LinearLayout implements NumberPi
 
     public void setNormalColor(int normalColor){
         mYearPickerView.setNormalTextColor(normalColor);
+
         mMonthPickerView.setNormalTextColor(normalColor);
         mDayPickerView.setNormalTextColor(normalColor);
     }
@@ -546,6 +548,8 @@ public class GregorianLunarCalendarView extends LinearLayout implements NumberPi
         int pickedDay = mDayPickerView.getValue();
         return new CalendarData(pickedYear, pickedMonthSway, pickedDay, mIsGregorian);
     }
+
+
 
     public static class CalendarData{
         public boolean isGregorian = false;
